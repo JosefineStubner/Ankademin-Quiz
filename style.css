@@ -1,0 +1,10 @@
+body {
+background: rgb(252, 215, 204);
+color: darkblue;
+}
+
+.dark-light {
+  background-color: darkblue;
+  color: rgb(252, 215, 204);
+}
+
