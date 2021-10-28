@@ -165,27 +165,16 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
       }
     }
 
-    //Checkbox fråga OBS! Får ej detta att fungera.
+    //Checkbox-fråga, kollar så att rätt alternativ är ifyllda för att ge rätt på frågan.
 
-    let checkboxes = document.querySelectorAll("input[name='multipleChoice']:checked");
-
-    //array för valt svar:
-
-    let checkedAnswers = [];
-
-    //tryck in svar i array
-
-    checkboxes.forEach((checkbox) => {
-      checkedAnswers.push(checkbox.value);
-  });
-
-    //om svaret är korrekt, lägg till in numCorrect
-    if(checkedAnswers == "right"){
-      console.log("rätt");
-      numCorrect++;
-    } else {
-      console.log("FEL");
-    }
+    if (document.querySelector("#answer1").checked === true && document.querySelector("#answer2").checked === true
+      && document.querySelector("#answer3").checked !== true && document.querySelector("#answer4").checked === true
+      && document.querySelector("#answer5").checked !== true) {
+        numCorrect++;
+        console.log("rätt!")
+      } else {
+        console.log("fel!")
+      }
 
     if(numCorrect <= 4){ //Vid 4 rätta svar eller mindre färgas texten röd.
       resultsContainer.style.color = "red";
@@ -194,7 +183,12 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
     } else { //Vid 8 eller fler rätta svar färgas texten grön.
       resultsContainer.style.color = "green";
     }
-    resultsContainer.innerHTML = `Du fick ${numCorrect} av 10 rätta svar.`;
+    
+    //Styling av resultat.
+    resultsContainer.style.backgroundColor = "white";
+    resultsContainer.style.fontWeight = "bold";
+    resultsContainer.style.borderStyle = "solid";
+    resultsContainer.innerHTML = `Du fick ${numCorrect} av 10 rätt.`;
   }
 
   showQuestions(questions, quizContainer);
