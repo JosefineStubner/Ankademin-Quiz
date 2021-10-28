@@ -18,7 +18,7 @@ resetButton.addEventListener("click", () => {
   window.location.reload();
 })
 
-//För att visa quizet.
+//För att lägga in quizet i DOM:en.
 let quizContainer = document.querySelector("#quiz");
 let resultsContainer = document.querySelector("#results");
 let checkAnswers = document.querySelector("#checkAnswers");
@@ -115,8 +115,8 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
   //Funktion för att skriva ut frågor och svar på sidan:
   function showQuestions(questions, quizContainer) {
 
-    //För att förvara output och valda svar:
-    let output = [];
+    //För att förvara text och valda svar:
+    let display = [];
     let answers;
 
     //För varje fråga i quizet:
@@ -128,24 +128,22 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
       //Lägg till en radio-knapp i html'en för varje möjligt svar på frågan.
       for(letter in questions[i].answers){
 
-        answers.push(
-          "<label>"
-          + "<input type='radio' name='question"+i+"' value='"+letter+"'>"
-          + letter + ": "
-          + questions[i].answers[letter]
-          + "<br/>"
-          + "</label>");
-      }
-
-      //Skapa div'ar och lägg till frågan och svaren i outputen på sidan.
-      output.push(
-        "<div class='question'>" + questions[i].question + "</div>"
-        + "<div class='answers'>" + answers.join("") + "</div>"
-      );
+      answers.push(
+        `<label>
+        <input type="radio" name="question${[i]}" value="${letter}">
+        ${letter}: ${questions[i].answers[letter]}<br/>
+        </label>`);
     }
 
-    //Kombinera output innehållet till en sträng i HTML och visa den i webbläsaren.
-    quizContainer.innerHTML = output.join("");
+      //Skapa div'ar och lägg till frågan och svaren på sidan.
+    display.push(
+      `<div class="question">${questions[i].question}</div>
+      <div class="answers">${answers.join("")}</div><br/>`
+    );
+  }
+
+    //Kombinera innehållet till en sträng i HTML och visa den i webbläsaren.
+    quizContainer.innerHTML = display.join("");
   }
 
   function showResults(questions, quizContainer, resultsContainer){
@@ -167,7 +165,36 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
       }
     }
 
-    resultsContainer.innerHTML = numCorrect + " av " + questions.length + " rätta svar.";
+    //Checkbox fråga OBS! Får ej detta att fungera.
+
+    let checkboxes = document.querySelectorAll("input[name='multipleChoice']:checked");
+
+    //array för valt svar:
+
+    let checkedAnswers = [];
+
+    //tryck in svar i array
+
+    checkboxes.forEach((checkbox) => {
+      checkedAnswers.push(checkbox.value);
+  });
+
+    //om svaret är korrekt, lägg till in numCorrect
+    if(checkedAnswers == "right"){
+      console.log("rätt");
+      numCorrect++;
+    } else {
+      console.log("FEL");
+    }
+
+    if(numCorrect <= 4){ //Vid 4 rätta svar eller mindre färgas texten röd.
+      resultsContainer.style.color = "red";
+    } else if(numCorrect <= 7){ //Vid mellan 5-7 rätta svar färgas texten orange.
+      resultsContainer.style.color = "orange";
+    } else { //Vid 8 eller fler rätta svar färgas texten grön.
+      resultsContainer.style.color = "green";
+    }
+    resultsContainer.innerHTML = `Du fick ${numCorrect} av 10 rätta svar.`;
   }
 
   showQuestions(questions, quizContainer);

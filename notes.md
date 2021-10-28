@@ -8,7 +8,7 @@ Quiz.
 (5 alternativ, 3 rätta svar)
 
 Längst ned ska det finnas en knapp med "check answers". 
-(När den klickas på ska resultatet skrivar ut DOM:en.
+(När den klickas på ska resultatet skrivas ut DOM:en.
 
 Mindre än 50% rätt = röd text.
 50% - 75% rätt = orange text.
