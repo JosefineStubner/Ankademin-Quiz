@@ -1,5 +1,5 @@
 //Namnger dark/light-mode knappen i JS.
-let switchModeButton = document.querySelector("#switchMode");
+let switchModeButton = document.getElementById("switchMode");
 
 //När användaren klickar på Dark/Light-mode knappen, ändra utseende på sidan.
 switchModeButton.addEventListener("click", darkLight);
@@ -11,7 +11,7 @@ function darkLight(){
 }
 
 //Namnger reset-knappen i JS.
-let resetButton = document.querySelector("#reset");
+let resetButton = document.getElementById("reset");
 
 //Funktion för att ladda om sidan.
 resetButton.addEventListener("click", () => {
@@ -19,9 +19,9 @@ resetButton.addEventListener("click", () => {
 })
 
 //För att lägga in quizet i DOM:en.
-let quizContainer = document.querySelector("#quiz");
-let resultsContainer = document.querySelector("#results");
-let checkAnswers = document.querySelector("#checkAnswers");
+let quizContainer = document.getElementById("quiz");
+let resultsContainer = document.getElementById("results");
+let checkAnswers = document.getElementById("checkAnswers");
 
 //Quiz-frågor (array of objects), variabel för att lagra innehållet i quizen.
 let quizQuestions = [
@@ -148,7 +148,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
 
   function showResults(questions, quizContainer, resultsContainer){
     //Hämta svars-containers från quizet.
-    let answerContainers = quizContainer.querySelectorAll(".answers");
+    let answerContainers = quizContainer.getElementsByClassName("answers");
 
     //Spåra vilket svar användaren har valt.
     let userAnswer = "";
@@ -167,9 +167,9 @@ function generateQuiz(questions, quizContainer, resultsContainer, checkAnswers){
 
     //Checkbox-fråga, kollar så att rätt alternativ är ifyllda för att ge rätt på frågan.
 
-    if (document.querySelector("#answer1").checked === true && document.querySelector("#answer2").checked === true
-      && document.querySelector("#answer3").checked !== true && document.querySelector("#answer4").checked === true
-      && document.querySelector("#answer5").checked !== true) {
+    if (document.getElementById("answer1").checked === true && document.getElementById("answer2").checked === true
+      && document.getElementById("answer3").checked !== true && document.getElementById("answer4").checked === true
+      && document.getElementById("answer5").checked !== true) {
         numCorrect++;
         console.log("rätt!")
       } else {
